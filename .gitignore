@@ -35,3 +35,6 @@ Thumbs.db
 *.log
 *.orig
 *.zip
+*.db
+*.db-shm
+*.db-wal
