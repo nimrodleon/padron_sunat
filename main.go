@@ -1,10 +1,10 @@
 package main
 
 import (
-	"download/downloader"
-	"download/importer"
 	"fmt"
 	"os"
+	"padron_sunat/downloader"
+	"padron_sunat/importer"
 )
 
 const (
