@@ -10,12 +10,13 @@ confinement: strict
 apps:
   padron-sunat:
     command: bin/padron_sunat
+    plugs:
+      - network
 
 parts:
   padron-sunat:
     plugin: go
     source: .
-    go-importpath: padron_sunat
     build-snaps: [ go/latest/stable ]
     build-packages:
       - sqlite3

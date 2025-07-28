@@ -14,7 +14,9 @@ func MultiPartDownload(url, output string, parts int) error {
 		return err
 	}
 
-	tmpDir, err := os.MkdirTemp("", "padron_parts")
+	tmpBase := os.Getenv("SNAP_USER_COMMON")
+	tmpDir, err := os.MkdirTemp(tmpBase, "padron_parts")
+	fmt.Println("tmpDir:", tmpDir)
 	if err != nil {
 		return err
 	}

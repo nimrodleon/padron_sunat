@@ -5,6 +5,7 @@ import (
 	"os"
 	"padron_sunat/downloader"
 	"padron_sunat/importer"
+	"path/filepath"
 )
 
 const (
@@ -13,16 +14,19 @@ const (
 )
 
 func main() {
-	zipName := "padron_reducido_ruc.zip"
+	// configurar rutas.
+	snapPath := os.Getenv("SNAP_USER_COMMON")
+	zipFile := filepath.Join(snapPath, "padron_reducido_ruc.zip")
+	dbFile := filepath.Join(snapPath, "padron_sunat.db")
 
 	/*──────── 1. Descarga multipart ────────*/
-	if err := downloader.MultiPartDownload(padronURL, zipName, numParts); err != nil {
+	if err := downloader.MultiPartDownload(padronURL, zipFile, numParts); err != nil {
 		_, _ = fmt.Fprintln(os.Stderr, "❌ descarga:", err)
 		os.Exit(1)
 	}
 
 	/*──────── 2. Importar datos a SQLite ────────*/
-	if err := importer.ImportToSQLite(zipName, "padron_sunat.db"); err != nil {
+	if err := importer.ImportToSQLite(zipFile, dbFile); err != nil {
 		_, _ = fmt.Fprintln(os.Stderr, "❌ importación:", err)
 		os.Exit(1)
 	}
