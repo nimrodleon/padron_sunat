@@ -17,15 +17,15 @@ func main() {
 
 	/*──────── 1. Descarga multipart ────────*/
 	if err := downloader.MultiPartDownload(padronURL, zipName, numParts); err != nil {
-		fmt.Fprintln(os.Stderr, "❌ descarga:", err)
+		_, _ = fmt.Fprintln(os.Stderr, "❌ descarga:", err)
 		os.Exit(1)
 	}
 
-	/*──────── 2. Importa a SQLite ────────*/
-	if err := importer.ImportToSQLite(zipName, "padron_reducido_ruc.db"); err != nil {
-		fmt.Fprintln(os.Stderr, "❌ importación:", err)
+	/*──────── 2. Importar datos a SQLite ────────*/
+	if err := importer.ImportToSQLite(zipName, "padron_sunat.db"); err != nil {
+		_, _ = fmt.Fprintln(os.Stderr, "❌ importación:", err)
 		os.Exit(1)
 	}
 
-	fmt.Println("🏁  Listo: padron_reducido_ruc.db creado")
+	fmt.Println("🏁  Listo: padron_sunat.db creado")
 }

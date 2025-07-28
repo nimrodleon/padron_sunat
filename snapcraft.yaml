@@ -1,0 +1,23 @@
+name: padron-sunat
+base: core22
+version: '1.0.0'
+summary: Convierte padrón SUNAT a SQLite
+description: Descarga el padrón reducido RUC de SUNAT, lo descomprime y convierte a una base de datos SQLite utilizable.
+
+grade: stable
+confinement: strict
+
+apps:
+  padron-sunat:
+    command: bin/padron_sunat
+
+parts:
+  padron-sunat:
+    plugin: go
+    source: .
+    go-importpath: padron_sunat
+    build-snaps: [ go/latest/stable ]
+    build-packages:
+      - sqlite3
+    stage-packages:
+      - libsqlite3-0
