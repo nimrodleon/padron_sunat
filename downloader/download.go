@@ -47,6 +47,11 @@ func MultiPartDownload(url, output string, parts int) error {
 	close(progress)
 	fmt.Println()
 
+	// comprobar la descarga anterior si existe.
+	if _, err := os.Stat(output); err == nil {
+		_ = os.Remove(output)
+	}
+
 	return mergeParts(tmpDir, output, parts)
 }
 

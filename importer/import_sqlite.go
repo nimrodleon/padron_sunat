@@ -9,6 +9,7 @@ import (
 	"golang.org/x/text/encoding/charmap"
 	"golang.org/x/text/transform"
 	"io"
+	"os"
 	"strings"
 	"time"
 
@@ -42,6 +43,11 @@ func ImportToSQLite(zipFile, dbFile string) error {
 	}
 
 	decoder := transform.NewReader(rawTxt, charmap.ISO8859_1.NewDecoder())
+
+	// borrar la base de datos anterior si existe.
+	if _, err := os.Stat(dbFile); err == nil {
+		_ = os.Remove(dbFile)
+	}
 
 	db, err := sql.Open("sqlite3", dbFile)
 	if err != nil {
